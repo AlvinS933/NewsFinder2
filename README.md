@@ -1,70 +1,223 @@
-# Getting Started with Create React App
+# News Blog Application
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A full-stack news aggregation and blogging platform built with React, Flask, and integrated AI capabilities. This application allows users to view, create, and manage news articles with automatic categorization, and includes an agentic simulator for article analysis.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+- **News Aggregation**: Automatically fetch and categorize news articles from NewsAPI
+- **AI-Powered Classification**: Uses OpenAI's GPT-3.5 to automatically categorize articles
+- **Full Article Scraping**: Extracts complete article text using newspaper3k
+- **Category Navigation**: Browse articles by topic (Politics, Economy, Technology, Health, Entertainment, etc.)
+- **Agentic Simulator**: Analyze articles with AI-powered insights
+- **CRUD Operations**: Create, read, update, and delete blog posts
+- **Responsive Design**: Modern, gradient-based UI with smooth animations
 
-### `npm start`
+## Tech Stack
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### Frontend
+- React 19.2.0
+- React Router DOM 5.3.4
+- Modern CSS with gradient designs
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Backend
+- Flask (Python)
+- Flask-CORS for cross-origin requests
+- OpenAI API for text classification
+- newspaper3k for article extraction
+- BeautifulSoup4 for HTML parsing
 
-### `npm test`
+### Data Storage
+- JSON Server (port 8000) for blog storage
+- Separate JSON Server (port 8001) for simulator outputs
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Prerequisites
 
-### `npm run build`
+- Node.js and npm
+- Python 3.7+
+- OpenAI API key
+- NewsAPI key
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Installation
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### 1. Clone the Repository
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```bash
+git clone <your-repository-url>
+cd news-blog
+```
 
-### `npm run eject`
+### 2. Frontend Setup
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+```bash
+npm install
+```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### 3. Backend Setup
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+```bash
+pip install flask flask-cors requests newspaper3k beautifulsoup4 openai
+```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### 4. Configure API Keys
 
-## Learn More
+Edit `news_api_server.py` and replace the API keys:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```python
+NEWSAPI_KEY = 'your_newsapi_key_here'
+OPENAI_API_KEY = 'your_openai_key_here'
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Running the Application
 
-### Code Splitting
+You need to run three servers simultaneously:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+### 1. Start JSON Server (Blog Data)
 
-### Analyzing the Bundle Size
+```bash
+npx json-server --watch db.json --port 8000
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+### 2. Start JSON Server (Simulator Outputs)
 
-### Making a Progressive Web App
+```bash
+npx json-server --watch output.json --port 8001
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+### 3. Start Flask Backend
 
-### Advanced Configuration
+```bash
+python news_api_server.py
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+The Flask server will run on `http://localhost:5000`
 
-### Deployment
+### 4. Start React Frontend
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+```bash
+npm start
+```
 
-### `npm run build` fails to minify
+The application will open at `http://localhost:3000`
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Project Structure
+
+```
+news-blog/
+├── public/
+├── src/
+│   ├── App.js                 # Main application component
+│   ├── Navbar.js             # Navigation bar
+│   ├── Home.js               # Home page with category navigation
+│   ├── Create.js             # Create new articles
+│   ├── NewsDetails.js        # Article detail view
+│   ├── NewsList.js           # Article list component
+│   ├── SearchNews.js         # Search and add news from API
+│   ├── Simulator.js          # Agentic simulator interface
+│   ├── useFetch.js           # Custom hook for data fetching
+│   ├── NotFound.js           # 404 page
+│   └── index.css             # Global styles
+├── news_api_server.py        # Flask backend server
+├── db.json                   # Blog data storage
+├── output.json               # Simulator outputs storage
+├── package.json              # Node dependencies
+└── README.md                 # This file
+```
+
+## API Endpoints
+
+### Flask Backend (`http://localhost:5000`)
+
+- `POST /api/search-news` - Search and add news articles
+  ```json
+  {
+    "topic": "string",
+    "from_date": "YYYY-MM-DD",
+    "to_date": "YYYY-MM-DD",
+    "pages": 1
+  }
+  ```
+- `GET /api/health` - Health check endpoint
+
+### JSON Server (`http://localhost:8000`)
+
+- `GET /blogs` - Get all blog posts
+- `GET /blogs/:id` - Get specific blog post
+- `POST /blogs` - Create new blog post
+- `DELETE /blogs/:id` - Delete blog post
+
+### JSON Server (`http://localhost:8001`)
+
+- `GET /outputs` - Get simulator outputs
+
+## Features in Detail
+
+### News Search and Import
+- Search news by topic and date range
+- Automatically scrapes full article content
+- AI-powered categorization using OpenAI
+- Handles up to 50 articles per search
+
+### Category System
+- Politics
+- Economy
+- Technology
+- Health
+- Sports
+- Entertainment
+- Environment
+- Education
+- Crime
+- International
+
+### Agentic Simulator
+- Input article data (title, source, text, URL, date)
+- Generate AI-powered analysis
+- View simulated transcripts, actions, and shared facts
+
+## Styling
+
+The application features a modern dark theme with:
+- Gradient backgrounds (blue to purple)
+- Smooth hover animations
+- Responsive design
+- Custom scrollbars
+- Glassmorphism effects
+
+## Known Limitations
+
+- NewsAPI has rate limits (check their documentation)
+- Article scraping may fail on some websites
+- OpenAI API costs apply per classification
+- Maximum 50 articles per search operation
+
+## Future Enhancements
+
+- User authentication
+- Bookmarking functionality
+- Advanced search filters
+- Article recommendations
+- Social sharing features
+- Comment system
+
+## Troubleshooting
+
+### Port conflicts
+If ports 3000, 5000, 8000, or 8001 are in use, modify the port numbers in the respective configuration files.
+
+### CORS errors
+Ensure Flask-CORS is properly installed and configured in `news_api_server.py`.
+
+### Missing articles
+Check that both JSON servers are running and the db.json file exists.
+
+## License
+
+This project is open source and available under the MIT License.
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## Acknowledgments
+
+- NewsAPI for
