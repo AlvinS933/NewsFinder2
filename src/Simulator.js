@@ -8,6 +8,8 @@ const Simulator = () => {
     const [articleText, setArticleText] = useState("");
     const [url, setUrl] = useState("");
     const [date, setDate] = useState("");
+    const [language, setLanguage] = useState("english");
+    const [contextText, setContextText] = useState("");
     
     const handleClear = () => {
         setTitle("");
@@ -38,6 +40,29 @@ const Simulator = () => {
                     <input type="text" value={url} onChange={(e) => setUrl(e.target.value)} />
                     <label>Date:</label>
                     <input type="date" value={date} onChange={(e) => setDate(e.target.value)} />
+                    <label>Language:</label>
+                    <div className="language-toggle">
+                        <label>
+                            <input 
+                                type="radio" 
+                                value="english" 
+                                checked={language === "english"} 
+                                onChange={(e) => setLanguage(e.target.value)}
+                            />
+                            <span>English</span>
+                        </label>
+                        <label>
+                            <input 
+                                type="radio" 
+                                value="chinese" 
+                                checked={language === "chinese"} 
+                                onChange={(e) => setLanguage(e.target.value)}
+                            />
+                            <span>Chinese (中文)</span>
+                        </label>
+                    </div>
+                    <label>Additional Context:</label>
+                    <textarea value={contextText} onChange={(e) => setContextText(e.target.value)}/>
                     <div className="button-group">
                         <button className="clear-button" type="button" onClick={handleClear}>CLEAR</button>
                         <button type="submit">SUBMIT</button>

@@ -490,3 +490,49 @@ body {
 .simulatorInputs button:active {
   transform: translateY(0);
 }
+
+.language-toggle {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.language-toggle label {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin: 0;
+  padding: 12px 20px;
+  cursor: pointer;
+  color: #cbd5e1;
+  font-weight: 500;
+  font-size: 14px;
+  background: rgba(15, 23, 42, 0.6);
+  border: 2px solid rgba(148, 163, 184, 0.2);
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.language-toggle label:hover {
+  color: #fff;
+  border-color: rgba(59, 130, 246, 0.4);
+  background: rgba(59, 130, 246, 0.1);
+}
+
+.language-toggle input[type="radio"] {
+  display: none;
+}
+
+.language-toggle input[type="radio"]:checked + span {
+  color: #fff;
+}
+
+.language-toggle label:has(input[type="radio"]:checked) {
+  background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+  border-color: #3b82f6;
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+  transform: translateY(-2px);
+}
