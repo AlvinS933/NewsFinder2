@@ -74,13 +74,13 @@ You need to run three servers simultaneously:
 ### 1. Start JSON Server (Blog Data)
 
 ```bash
-npx json-server --watch db.json --port 8000
+npx json-server --watch data/db.json --port 8000
 ```
 
 ### 2. Start JSON Server (Simulator Outputs)
 
 ```bash
-npx json-server --watch output.json --port 8001
+npx json-server --watch data/output.json --port 8001
 ```
 
 ### 3. Start Flask Backend
