@@ -5,9 +5,9 @@ const LanguageContext = createContext();
 const translations = {
   en: {
     // Navbar
-    newsCollection: "News Collection",
+    newsCollection: "Agentic AI Geopolitical Dashboard",
     home: "Home",
-    agenticSimulator: "AGENTIC SIMULATOR",
+    agenticSimulator: "RUN SIMULATION",
     newPost: "Insert Custom Article",
     searchAdd: "Search/Add",
     
@@ -89,9 +89,9 @@ const translations = {
   },
   zh: {
     // Navbar
-    newsCollection: "新聞集錦",
+    newsCollection: "Agentic AI Geopolitical Dashboard",
     home: "首頁",
-    agenticSimulator: "代理模擬器",
+    agenticSimulator: "模擬器",
     newPost: "自訂文章",
     searchAdd: "搜尋/新增",
     
