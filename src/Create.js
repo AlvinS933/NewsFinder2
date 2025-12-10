@@ -1,6 +1,9 @@
 import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { useLanguage } from './LanguageContext';
+
 const Create = () => {
+    const { t } = useLanguage();
     const [title, setTitle] = useState('');
     const [body, setBody] = useState('');
     const [category, setCategory] = useState('economy');
@@ -18,43 +21,42 @@ const Create = () => {
         }).then(() => {
             console.log('new blog added');
             setIsPending(false);
-            //history.go(-1);
             history.push('/');
         })
     }
+    
     return (
         <div className="create">
-            <h2>Add More News/Articles</h2>
+            <h2>{t('addMoreNews')}</h2>
             <form onSubmit={handleSubmit}>
-                <label>News title:</label>
+                <label>{t('newsTitle')}</label>
                 <input 
                     type="text" 
                     required
-                    value = {title}
-                    onChange = {(e) => setTitle(e.target.value)}
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)}
                 />
-                <label>News body:</label>
-
+                <label>{t('newsBody')}</label>
                 <textarea 
                     required 
                     value={body} 
                     onChange={(e) => setBody(e.target.value)}
                 ></textarea>
-                <label>News Category:</label>
-
-                <select value = {category} onChange={(e) => setCategory(e.target.value)}>
-                    <option value="economy">economy</option>
-                    <option value="technology">technology</option>
-                    <option value="health">health</option>
-                    <option value="entertainment">entertainment</option>
-                    <option value="environment">environment</option>
-                    <option value="education">education</option>
-                    <option value="unknown">unknown</option>
+                <label>{t('newsCategory')}</label>
+                <select value={category} onChange={(e) => setCategory(e.target.value)}>
+                    <option value="economy">{t('economy')}</option>
+                    <option value="technology">{t('technology')}</option>
+                    <option value="health">{t('health')}</option>
+                    <option value="entertainment">{t('entertainment')}</option>
+                    <option value="environment">{t('environment')}</option>
+                    <option value="education">{t('education')}</option>
+                    <option value="unknown">{t('unknown')}</option>
                 </select>
-                {!isPending && <button>Add News</button>}
-                {isPending && <button disabled>Adding News...</button>}
+                {!isPending && <button>{t('addNews')}</button>}
+                {isPending && <button disabled>{t('addingNews')}</button>}
             </form>
         </div>
     );
 }
-export default Create
+
+export default Create;

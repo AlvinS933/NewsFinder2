@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { useLanguage } from './LanguageContext';
 
 const SearchNews = () => {
+    const { t } = useLanguage();
     const [searchTopic, setSearchTopic] = useState('');
     const [fromDate, setFromDate] = useState('');
     const [toDate, setToDate] = useState('');
@@ -18,7 +20,6 @@ const SearchNews = () => {
         setError('');
 
         try {
-            // Call your Python backend endpoint
             const response = await fetch('http://localhost:5000/api/search-news', {
                 method: 'POST',
                 headers: {
@@ -38,10 +39,9 @@ const SearchNews = () => {
                 throw Error(data.error || 'Failed to fetch news');
             }
 
-            setMessage(`Successfully added ${data.articles_added} articles to the database!`);
+            setMessage(`${t('successAdded')} ${data.articles_added} ${t('articlesDb')}`);
             setIsPending(false);
 
-            // Optionally redirect to home after 2 seconds
             setTimeout(() => {
                 history.push('/');
             }, 2000);
@@ -54,18 +54,18 @@ const SearchNews = () => {
 
     return (
         <div className="create">
-            <h2>Search and Add News</h2>
+            <h2>{t('searchAndAddNews')}</h2>
             <form onSubmit={handleSubmit}>
-                <label>Search Topic:</label>
+                <label>{t('searchTopic')}</label>
                 <input
                     type="text"
                     required
                     value={searchTopic}
                     onChange={(e) => setSearchTopic(e.target.value)}
-                    placeholder="e.g., Trump, Climate Change, AI"
+                    placeholder={t('topicPlaceholder')}
                 />
                 
-                <label>From Date:</label>
+                <label>{t('fromDate')}</label>
                 <input
                     type="date"
                     required
@@ -73,7 +73,7 @@ const SearchNews = () => {
                     onChange={(e) => setFromDate(e.target.value)}
                 />
                 
-                <label>To Date:</label>
+                <label>{t('toDate')}</label>
                 <input
                     type="date"
                     required
@@ -81,7 +81,7 @@ const SearchNews = () => {
                     onChange={(e) => setToDate(e.target.value)}
                 />
                 
-                <label>Number of Pages (1-5):</label>
+                <label>{t('numPages')}</label>
                 <input
                     type="number"
                     min="1"
@@ -90,8 +90,8 @@ const SearchNews = () => {
                     onChange={(e) => setPages(e.target.value)}
                 />
                 
-                {!isPending && <button>Search & Add News</button>}
-                {isPending && <button disabled>Searching and Adding News...</button>}
+                {!isPending && <button>{t('searchAddNewsBtn')}</button>}
+                {isPending && <button disabled>{t('searchingAdding')}</button>}
             </form>
 
             {message && (
@@ -114,7 +114,7 @@ const SearchNews = () => {
                     color: '#721c24',
                     borderRadius: '4px' 
                 }}>
-                    Error: {error}
+                    {t('error')} {error}
                 </div>
             )}
         </div>

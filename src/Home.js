@@ -1,11 +1,12 @@
 import NewsList from './NewsList';
 import useFetch from './useFetch';
 import { useRef } from 'react';
+import { useLanguage } from './LanguageContext';
 
 const Home = () => {
+    const { t } = useLanguage();
     const {data:blogs, isPending, error} = useFetch('http://localhost:8000/blogs');
     
-    // Create refs for each category section
     const allNewsRef = useRef(null);
     const politicsRef = useRef(null);
     const economyRef = useRef(null);
@@ -20,20 +21,20 @@ const Home = () => {
     };
 
     const categories = [
-        { name: 'All News', ref: allNewsRef, filter: null },
-        { name: 'Politics', ref: politicsRef, filter: 'politics' },
-        { name: 'Economy', ref: economyRef, filter: 'economy' },
-        { name: 'Technology', ref: technologyRef, filter: 'technology' },
-        { name: 'Health', ref: healthRef, filter: 'health' },
-        { name: 'Entertainment', ref: entertainmentRef, filter: 'entertainment' },
-        { name: 'Environment', ref: environmentRef, filter: 'environment' },
-        { name: 'Education', ref: educationRef, filter: 'education' }
+        { name: t('allNews'), ref: allNewsRef, filter: null },
+        { name: t('politics'), ref: politicsRef, filter: 'politics' },
+        { name: t('economy'), ref: economyRef, filter: 'economy' },
+        { name: t('technology'), ref: technologyRef, filter: 'technology' },
+        { name: t('health'), ref: healthRef, filter: 'health' },
+        { name: t('entertainment'), ref: entertainmentRef, filter: 'entertainment' },
+        { name: t('environment'), ref: environmentRef, filter: 'environment' },
+        { name: t('education'), ref: educationRef, filter: 'education' }
     ];
 
     return ( 
         <div className="home-container">
             <div className="category-nav">
-                <h3>Categories</h3>
+                <h3>{t('categories')}</h3>
                 {categories.map((category) => (
                     <button
                         key={category.name}
@@ -47,38 +48,38 @@ const Home = () => {
             
             <div className="home">
                 {error && <div>{error}</div>}
-                {isPending && <div>Loading...</div>}
+                {isPending && <div>{t('loading')}</div>}
                 
                 <div ref={allNewsRef}>
-                    {blogs && <NewsList blogs={blogs} title={"All News:"} />}
+                    {blogs && <NewsList blogs={blogs} title={t('allNews') + ":"} />}
                 </div>
                 
                 <div ref={politicsRef}>
-                    {blogs && <NewsList blogs={blogs.filter((blog)=>blog.category === "politics")} title={"Politics News"} />}
+                    {blogs && <NewsList blogs={blogs.filter((blog)=>blog.category === "politics")} title={t('politicsNews')} />}
                 </div>
                 
                 <div ref={economyRef}>
-                    {blogs && <NewsList blogs={blogs.filter((blog)=>blog.category === "economy")} title={"Economy News"} />}
+                    {blogs && <NewsList blogs={blogs.filter((blog)=>blog.category === "economy")} title={t('economyNews')} />}
                 </div>
                 
                 <div ref={technologyRef}>
-                    {blogs && <NewsList blogs={blogs.filter((blog)=>blog.category === "technology")} title={"Technology News"} />}
+                    {blogs && <NewsList blogs={blogs.filter((blog)=>blog.category === "technology")} title={t('technologyNews')} />}
                 </div>
                 
                 <div ref={healthRef}>
-                    {blogs && <NewsList blogs={blogs.filter((blog)=>blog.category === "health")} title={"Health News"} />}
+                    {blogs && <NewsList blogs={blogs.filter((blog)=>blog.category === "health")} title={t('healthNews')} />}
                 </div>
                 
                 <div ref={entertainmentRef}>
-                    {blogs && <NewsList blogs={blogs.filter((blog)=>blog.category === "entertainment")} title={"Entertainment News"} />}
+                    {blogs && <NewsList blogs={blogs.filter((blog)=>blog.category === "entertainment")} title={t('entertainmentNews')} />}
                 </div>
                 
                 <div ref={environmentRef}>
-                    {blogs && <NewsList blogs={blogs.filter((blog)=>blog.category === "environment")} title={"Environment News"} />}
+                    {blogs && <NewsList blogs={blogs.filter((blog)=>blog.category === "environment")} title={t('environmentNews')} />}
                 </div>
                 
                 <div ref={educationRef}>
-                    {blogs && <NewsList blogs={blogs.filter((blog)=>blog.category === "education")} title={"Education News"} />}
+                    {blogs && <NewsList blogs={blogs.filter((blog)=>blog.category === "education")} title={t('educationNews')} />}
                 </div>
             </div>
         </div>

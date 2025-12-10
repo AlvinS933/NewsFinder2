@@ -1,7 +1,9 @@
 import { useState } from "react";
 import useFetch from './useFetch';
+import { useLanguage } from './LanguageContext';
 
 const Simulator = () => {
+    const { t } = useLanguage();
     const {data: outputData, isPending, error} = useFetch('http://localhost:8001/outputs');
     const [title, setTitle] = useState("");
     const [source, setSource] = useState("");
@@ -21,26 +23,25 @@ const Simulator = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // Add your submit logic here
         console.log({title, source, articleText, url, date});
     }
 
     return (
         <div>
             <div className="simulatorInputs">
-                <h2>Input Article Data</h2>
+                <h2>{t('inputArticleData')}</h2>
                 <form onSubmit={handleSubmit}>
-                    <label>Title:</label>
+                    <label>{t('title')}</label>
                     <input type="text" value={title} onChange={(e) => setTitle(e.target.value)}/>
-                    <label>Source:</label>
+                    <label>{t('source')}</label>
                     <input type="text" value={source} onChange={(e) => setSource(e.target.value)}/>
-                    <label>Article Text:</label>
+                    <label>{t('articleText')}</label>
                     <textarea value={articleText} onChange={(e) => setArticleText(e.target.value)}/>
-                    <label>URL:</label>
+                    <label>{t('url')}</label>
                     <input type="text" value={url} onChange={(e) => setUrl(e.target.value)} />
-                    <label>Date:</label>
+                    <label>{t('date')}</label>
                     <input type="date" value={date} onChange={(e) => setDate(e.target.value)} />
-                    <label>Language:</label>
+                    <label>{t('language')}</label>
                     <div className="language-toggle">
                         <label>
                             <input 
@@ -49,7 +50,7 @@ const Simulator = () => {
                                 checked={language === "english"} 
                                 onChange={(e) => setLanguage(e.target.value)}
                             />
-                            <span>English</span>
+                            <span>{t('english')}</span>
                         </label>
                         <label>
                             <input 
@@ -58,39 +59,39 @@ const Simulator = () => {
                                 checked={language === "chinese"} 
                                 onChange={(e) => setLanguage(e.target.value)}
                             />
-                            <span>Chinese (中文)</span>
+                            <span>{t('chinese')}</span>
                         </label>
                     </div>
-                    <label>Additional Context:</label>
+                    <label>{t('additionalContext')}</label>
                     <textarea value={contextText} onChange={(e) => setContextText(e.target.value)}/>
                     <div className="button-group">
-                        <button className="clear-button" type="button" onClick={handleClear}>CLEAR</button>
-                        <button type="submit">SUBMIT</button>
+                        <button className="clear-button" type="button" onClick={handleClear}>{t('clear')}</button>
+                        <button type="submit">{t('submit')}</button>
                     </div>
                 </form>
             </div>
             <div className="simulatorOutputs">
-                <h2>Simulation Results</h2>
-                {isPending && <div>Loading output data...</div>}
-                {error && <div>Error loading output: {error}</div>}
+                <h2>{t('simulationResults')}</h2>
+                {isPending && <div>{t('loadingOutput')}</div>}
+                {error && <div>{t('errorLoading')} {error}</div>}
                 {outputData && (
                     <form>
-                        <label>Simulated Transcript:</label>
+                        <label>{t('simulatedTranscript')}</label>
                         <textarea 
                             readOnly 
-                            value={outputData.transcript || "No transcript data available"} 
+                            value={outputData.transcript || t('noTranscript')} 
                         />
-                        <label>Simulated Actions:</label>
+                        <label>{t('simulatedActions')}</label>
                         <textarea 
                             readOnly 
-                            value={outputData.actions || "No actions data available"} 
+                            value={outputData.actions || t('noActions')} 
                         />
-                        <label>Shared Facts:</label>
+                        <label>{t('sharedFacts')}</label>
                         <textarea 
                             readOnly 
-                            value={outputData.shared_facts || "No shared facts available"} 
+                            value={outputData.shared_facts || t('noSharedFacts')} 
                         />
-                        <label>Raw Json:</label>
+                        <label>{t('rawJson')}</label>
                         <textarea 
                             readOnly 
                             value={JSON.stringify(outputData, null, 2)} 

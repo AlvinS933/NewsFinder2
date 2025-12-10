@@ -536,3 +536,28 @@ body {
   box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
   transform: translateY(-2px);
 }
+
+
+.language-toggle-btn {
+  padding: 8px 16px;
+  background: rgba(59, 130, 246, 0.2);
+  border: 1px solid rgba(59, 130, 246, 0.4);
+  border-radius: 6px;
+  color: #fff;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-right: 8px;
+}
+
+.language-toggle-btn:hover {
+  background: rgba(59, 130, 246, 0.3);
+  border-color: rgba(59, 130, 246, 0.6);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+.language-toggle-btn:active {
+  transform: translateY(0);
+}
