@@ -86,6 +86,12 @@ const translations = {
     sharedFacts: "Shared Facts:",
     noSharedFacts: "No shared facts available",
     rawJson: "Raw Json:",
+
+    //simmulation controls
+    simulationControls: "Simulation Controls",
+    next: "Next →",
+    previous: "← Previous",
+    steps: "Steps"
   },
   zh: {
     // Navbar
@@ -170,6 +176,13 @@ const translations = {
     sharedFacts: "共享事實：",
     noSharedFacts: "無共享事實",
     rawJson: "原始 Json：",
+
+
+    //simmulation controls
+    simulationControls: "模擬控制",
+    next: "下一步 →",
+    previous: "← 上一步",
+    steps: "Steps"
   }
 };
 

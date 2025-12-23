@@ -561,3 +561,132 @@ body {
 .language-toggle-btn:active {
   transform: translateY(0);
 }
+
+/* Simulator Container */
+.simulator-container {
+    position: relative;
+    height: 100vh;
+}
+
+/* Movable Window */
+.movable-window {
+    position: fixed;
+    width: 400px;
+    background: rgba(30, 41, 59, 0.95);
+    border: 2px solid rgba(59, 130, 246, 0.5);
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(10px);
+    z-index: 9999;
+    cursor: grab;
+    user-select: none;
+}
+
+.movable-window.dragging {
+    cursor: grabbing;
+}
+
+/* Window Header (Drag Handle) */
+.window-header {
+    padding: 10px;
+    margin-bottom: 15px;
+    text-align: center;
+    border-bottom: 1px solid rgba(148, 163, 184, 0.2);
+    cursor: grab;
+    background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.movable-window.dragging .window-header {
+    cursor: grabbing;
+}
+
+/* Step Display */
+.step-display {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #e2e8f0;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+/* Progress Bar */
+.progress-bar-container {
+    width: 100%;
+    height: 8px;
+    background: rgba(15, 23, 42, 0.6);
+    border-radius: 4px;
+    margin-bottom: 20px;
+    overflow: hidden;
+}
+
+.progress-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+    transition: width 0.3s ease;
+    border-radius: 4px;
+}
+
+/* Control Buttons */
+.control-buttons {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    justify-content: center;
+}
+
+.control-btn {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+}
+
+.control-btn:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
+}
+
+.control-btn:active:not(:disabled) {
+    transform: translateY(0);
+}
+
+.control-btn:disabled {
+    background: rgba(100, 116, 139, 0.3);
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+.prev-btn,
+.next-btn {
+    flex: 1;
+}
+
+.play-pause-btn {
+    padding: 12px 20px;
+    min-width: 60px;
+    font-size: 18px;
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+}
+
+.play-pause-btn.playing {
+    background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+}
+
+.play-pause-btn:hover:not(:disabled) {
+    box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+}
+
+.play-pause-btn.playing:hover:not(:disabled) {
+    box-shadow: 0 6px 20px rgba(239, 68, 68, 0.4);
+}
