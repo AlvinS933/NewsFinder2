@@ -75,39 +75,6 @@ NEWSAPI_KEY=your_newsapi_key_here
 OPENAI_API_KEY=your_openai_key_here
 ```
 
-`.env` is listed in `.gitignore`, so it is never committed. `.env.example` is
-committed and documents the required variables without containing any values.
-The Flask server refuses to start with a clear error if either key is missing.
-
-> These keys are used **only** by the Flask backend. Never put a secret in a
-> `REACT_APP_*` variable — Create React App inlines those into the JavaScript
-> bundle that ships to every visitor's browser.
-
-### Secret-handling checklist
-
-This repo is **public**, so the guarantees below matter. All four were verified
-by scanning the working tree and the full commit history:
-
-| Check | Status |
-| --- | --- |
-| `.env` ignored by git (`.gitignore` also ignores `.env.*`, with `!.env.example` re-included) | Yes |
-| `.env` ever committed, on any branch, at any point in history | No — only `.env.example` was ever added |
-| Key-shaped strings (`sk-…`, 32-hex API keys, inline `apiKey=`) in tracked files or history | None found |
-| Secrets reachable from the browser bundle (`REACT_APP_*`, hard-coded keys in `src/`) | None — keys stay server-side |
-
-To re-run the history scan yourself:
-
-```bash
-# any file that ever looked like an env file
-git log --all --diff-filter=A --name-only -- .env "*.env" ".env.*"
-
-# key-shaped strings anywhere in history
-git log --all -p | grep -nE "sk-[A-Za-z0-9_-]{20,}|(NEWSAPI|OPENAI)_API_KEY\s*=\s*\S+"
-```
-
-If a key is ever pasted into a committed file, rotate it at the provider first
-— rewriting history does not un-leak a key that was already pushed.
-
 ## Running the Application
 
 You need to run four processes simultaneously:
@@ -298,7 +265,7 @@ reason when it declines:
 - Crime
 - International
 
-### Agentic Simulator
+### Agentic Simulator (not implemented yet, TBD)
 - Input article data (title, source, text, URL, date)
 - Generate AI-powered analysis
 - View simulated transcripts, actions, and shared facts
