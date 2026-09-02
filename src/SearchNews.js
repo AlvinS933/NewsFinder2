@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useLanguage } from './LanguageContext';
+import TariffNotifications from './TariffNotifications';
 
 const SearchNews = () => {
     const { t } = useLanguage();
@@ -11,13 +12,19 @@ const SearchNews = () => {
     const [isPending, setIsPending] = useState(false);
     const [message, setMessage] = useState('');
     const [error, setError] = useState('');
+    const [tariffLookups, setTariffLookups] = useState([]);
     const history = useHistory();
+
+    // Tariff results are only ever shown as an overlay, so hold the redirect
+    // home until the last notification has been read or has timed out.
+    const goHome = useCallback(() => history.push('/'), [history]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         setIsPending(true);
         setMessage('');
         setError('');
+        setTariffLookups([]);
 
         try {
             const response = await fetch('http://localhost:5001/api/search-news', {
@@ -42,9 +49,12 @@ const SearchNews = () => {
             setMessage(`${t('successAdded')} ${data.articles_added} ${t('articlesDb')}`);
             setIsPending(false);
 
-            setTimeout(() => {
-                history.push('/');
-            }, 2000);
+            const lookups = data.tariff_lookups || [];
+            setTariffLookups(lookups);
+
+            if (lookups.length === 0) {
+                setTimeout(goHome, 2000);
+            }
 
         } catch (err) {
             setError(err.message);
@@ -117,6 +127,8 @@ const SearchNews = () => {
                     {t('error')} {error}
                 </div>
             )}
+
+            <TariffNotifications lookups={tariffLookups} onAllDismissed={goHome} />
         </div>
     );
 };

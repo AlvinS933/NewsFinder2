@@ -63,6 +63,11 @@ const translations = {
     successAdded: "Successfully added",
     articlesDb: "articles to the database!",
     error: "Error:",
+
+    // Tariff notification overlay
+    tariffLookup: "Agentic tariff lookup",
+    generalDuty: "General duty:",
+    dismiss: "Dismiss",
     
     // Simulator
     inputArticleData: "Input Article Data",
@@ -164,6 +169,11 @@ const translations = {
     successAdded: "成功新增",
     articlesDb: "篇文章到資料庫！",
     error: "錯誤：",
+
+    // Tariff notification overlay
+    tariffLookup: "代理關稅查詢",
+    generalDuty: "一般稅率：",
+    dismiss: "關閉",
     
     // Simulator
     inputArticleData: "輸入文章資料",
